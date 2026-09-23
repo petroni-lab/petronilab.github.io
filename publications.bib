@@ -1,0 +1,41 @@
+@comment{
+  Paste one BibTeX entry per paper below. The home page and publication.html?id=<key> are built from this file.
+
+  Standard fields (title, author, year, month, journal/booktitle, url, doi, eprint) are rendered and kept in "Copy BibTeX".
+  Site-only fields (shown on the site, stripped from "Copy BibTeX"):
+    github, project, pdf, video, slides : link buttons
+    tldr                                : one-line subtitle on the paper page
+    cover                               : hero image file inside posts/<key>/, e.g. cover.jpg
+    abstract                            : shown when there is no blog post
+
+  Blog post (optional): create a folder posts/<key>/ with an index.md in Markdown, and put its images and
+  files in the same folder. Reference them by filename: ![Overview](figure1.png). Each "## Heading" becomes
+  a numbered section, $x$ and $$x$$ render as math, and raw HTML (<figure>, <video>, <iframe>) works too.
+
+  Example:
+  @inproceedings[petroni2026example,
+    title     = [A Short Paper Title],
+    author    = [Sigillo, Luigi and Petroni, Fabio],
+    booktitle = [Conference Name],
+    year      = [2026],
+    month     = [September],
+    eprint    = [2609.01234],
+    github    = [https://github.com/petronilab/example],
+    tldr      = [One sentence on what the paper does.],
+    cover     = [cover.jpg]
+  ]
+  (brackets stand in for curly braces so this example is not parsed)
+}
+
+@misc{sigillo2026emblailibrarianlifesciences,
+      title={EMBL AI Librarian: Life-Sciences Knowledge Layer for AI Agents}, 
+      author={Luigi Sigillo and Matteo Silvestri and Francesco Tabaro and Rajat Bhatnagar and Syed Irtaza Mubashar and Matt Jeffryes and Daljit Nijjer and Vittorio Perera and Ola Spjuth and Julio Saez-Rodriguez and Melissa Harrison and Fabio Petroni},
+      year={2026},
+      eprint={2607.28229},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2607.28229},
+      month={July},
+      github={https://github.com/petroni-lab/librarian},
+      tldr={A knowledge layer that lets AI agents ask Europe PMC questions in natural language and get back the evidence that answers them.},
+}
