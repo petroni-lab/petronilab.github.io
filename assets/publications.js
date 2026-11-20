@@ -94,7 +94,7 @@ function linksOf(f) {
   const arxivUrl = arxiv && `https://arxiv.org/abs/${arxiv}`;
   const paper = f.pdf || f.url || (f.doi && `https://doi.org/${f.doi}`);
   return [
-    ["Paper", paper !== arxivUrl && paper],
+    [/biorxiv\.org/.test(paper) ? "bioRxiv" : "Paper", paper !== arxivUrl && paper],
     ["arXiv", arxivUrl],
     ["Code", f.github || f.code],
     ["Project", f.project || f.website],
