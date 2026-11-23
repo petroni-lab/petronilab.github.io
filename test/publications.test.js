@@ -1,6 +1,6 @@
 // Run: node test/publications.test.js
 const assert = require("assert");
-const { parseBib, cleanTex, formatAuthors, toBibtex, linksOf } = require("../assets/publications.js");
+const { authorsHtml, parseBib, cleanTex, formatAuthors, toBibtex, linksOf } = require("../assets/publications.js");
 
 const bib = `
 @comment{ ignored @article{nope, title={x}} }
@@ -26,6 +26,8 @@ assert.strictEqual(cleanTex(b.fields.title), "Nested braces deep");
 assert.deepStrictEqual(linksOf(a.fields).map(([l]) => l), ["arXiv", "Code"]);
 assert.ok(!toBibtex(a).includes("github"));
 assert.ok(toBibtex(a).startsWith("@inproceedings{sigillo2026demo,"));
+
+assert.strictEqual(authorsHtml("Sigillo, Luigi and Rajat B"), "<strong>Luigi Sigillo</strong>, Rajat B");
 
 const fs = require("fs");
 parseBib(fs.readFileSync(__dirname + "/../publications.bib", "utf8")); // the real file must parse

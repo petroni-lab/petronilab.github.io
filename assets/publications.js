@@ -85,6 +85,18 @@ function formatAuthors(author = "") {
     .join(", ");
 }
 
+// Lab members, bolded in author lists. Add new members here (accents/case ignored).
+const LAB_MEMBERS = ["Fabio Petroni", "Luigi Sigillo", "Matteo Silvestri", "Vittorio Perera", "Annafabia Gai", "Francesco Danese", "Syed Mohamad Tawseeq", "Andrea Llorente López"];
+const plain = (n) => n.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+const labSet = new Set(LAB_MEMBERS.map(plain));
+
+function authorsHtml(author = "") {
+  return formatAuthors(author)
+    .split(", ")
+    .map((n) => (labSet.has(plain(n)) ? `<strong>${escapeHtml(n)}</strong>` : escapeHtml(n)))
+    .join(", ");
+}
+
 function venueOf(f) {
   return cleanTex(f.journal || f.booktitle || f.publisher || f.howpublished || (f.eprint ? "arXiv preprint" : ""));
 }
@@ -139,7 +151,7 @@ async function renderList(list) {
       <li class="pub-item">
         <span class="media-source">${escapeHtml([venueOf(f), f.year].filter(Boolean).join(", "))}</span>
         <a class="pub-title" href="publication.html?id=${encodeURIComponent(key)}">${escapeHtml(cleanTex(f.title))}</a>
-        <p class="pub-authors">${escapeHtml(formatAuthors(f.author))}</p>
+        <p class="pub-authors">${authorsHtml(f.author)}</p>
         <div class="pub-links">${linksHtml(f)}</div>
       </li>`)
     .join("");
@@ -174,7 +186,7 @@ async function renderPage(article) {
     <span class="eyebrow">${escapeHtml(venueOf(f))}</span>
     <h1 class="pub-page-title">${escapeHtml(title)}</h1>
     ${f.tldr ? `<p class="pub-tldr">${escapeHtml(cleanTex(f.tldr))}</p>` : ""}
-    <p class="pub-authors">${escapeHtml([date, formatAuthors(f.author)].filter(Boolean).join(" \u00b7 "))}</p>
+    <p class="pub-authors">${[date && escapeHtml(date), authorsHtml(f.author)].filter(Boolean).join(" \u00b7 ")}</p>
     <div class="pub-links">${linksHtml(f)}</div>
     ${post ? `<div class="post">${post}</div>` : f.abstract ? `<div class="post"><h2>Abstract</h2><p>${escapeHtml(cleanTex(f.abstract))}</p></div>` : ""}
     <h2>Cite</h2>
@@ -219,4 +231,4 @@ if (typeof document !== "undefined") {
   });
 }
 
-if (typeof module !== "undefined") module.exports = { parseBib, cleanTex, formatAuthors, toBibtex, linksOf };
+if (typeof module !== "undefined") module.exports = { authorsHtml, parseBib, cleanTex, formatAuthors, toBibtex, linksOf };
